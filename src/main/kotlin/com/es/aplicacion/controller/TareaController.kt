@@ -1,18 +1,22 @@
-package org.example.com.es.aplicacion.controller
+package com.es.aplicacion.controller
 
-import org.example.com.es.aplicacion.model.Tarea
-import org.example.com.es.aplicacion.service.TareaService
+import com.es.aplicacion.dto.TareaAddDTO
+import com.es.aplicacion.model.Tarea
+import com.es.aplicacion.service.TareaService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.security.core.Authentication
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/tareas")
+@RequestMapping("/tarea")
 class TareaController {
 
     @Autowired
@@ -20,35 +24,49 @@ class TareaController {
 
     @GetMapping("/mostrar/{username}")
     fun getTask(
-        @PathVariable username:String
-    ):ResponseEntity<Tarea> {
-
+        @PathVariable username:String,
+        authentication: Authentication
+    ):ResponseEntity<List<Tarea>> {
+        val tareas = tareaService.getTasks(username, authentication)
+        return ResponseEntity(tareas, HttpStatus.OK)
     }
 
     @GetMapping("/mostrarTodas")
     fun getAll():ResponseEntity<List<Tarea>>  {
-
+        return ResponseEntity(tareaService.getAllTasks(), HttpStatus.OK)
     }
 
     @PostMapping("/agregarTarea/{username}")
     fun addTask(
-        @PathVariable username: String
+        @PathVariable username: String,
+        @RequestBody tareaAdd: TareaAddDTO,
+        authentication: Authentication
     ):ResponseEntity<Tarea>  {
-
+        val tarea = tareaService.addTask(username, tareaAdd, authentication)
+        return ResponseEntity(tarea, HttpStatus.OK)
     }
 
-    @PostMapping("/actualizarEstado/{username}")
+    @PostMapping("/actualizarEstado/{titulo}")
     fun updateState(
-        @PathVariable username: String
+        @PathVariable titulo: String,
+        authentication: Authentication
     ):ResponseEntity<Tarea>  {
-
+        val tareaUpdate = tareaService.updateState(titulo, authentication)
+        return ResponseEntity(tareaUpdate, HttpStatus.OK)
     }
 
-    @DeleteMapping("/eliminarTarea/{username}")
+    @DeleteMapping("/eliminarTarea/{titulo}")
     fun deleteTask(
-        @PathVariable username: String
-    ):ResponseEntity<Tarea>  {
+        @PathVariable titulo: String,
+        authentication: Authentication
+    ):ResponseEntity<String>  {
+        tareaService.deleteTask(titulo, authentication)
+        return ResponseEntity("Eliminado", HttpStatus.OK)
+    }
 
+    @GetMapping("/")
+    fun holaMundo():String {
+        return "<h1>HOLA MUNDO</h1>"
     }
 
 }

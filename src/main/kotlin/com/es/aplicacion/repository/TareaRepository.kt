@@ -1,9 +1,13 @@
-package org.example.com.es.aplicacion.repository
+package com.es.aplicacion.repository
 
-import org.example.com.es.aplicacion.model.Tarea
+import com.es.aplicacion.model.Tarea
 import org.springframework.data.mongodb.repository.MongoRepository
 import org.springframework.stereotype.Repository
+import java.util.*
 
 @Repository
-interface TareaRepository : MongoRepository<Tarea, String> {
+interface TareaRepository : MongoRepository<Tarea, String>, TareaCustomRepository {
+
+    fun findByTitulo(titulo:String) :Optional<Tarea>
+
 }
