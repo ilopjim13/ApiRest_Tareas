@@ -38,7 +38,6 @@ class UsuarioController {
     ) : ResponseEntity<UsuarioDTO>?{
 
         val usuarioDTO = usuarioService.insertUser(usuarioRegisterDTO)
-
         return ResponseEntity(usuarioDTO, HttpStatus.CREATED)
 
     }
