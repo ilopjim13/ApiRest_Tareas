@@ -9,11 +9,13 @@ import aplicacion.error.exception.UnauthorizedException
 import com.es.aplicacion.model.Usuario
 import com.es.aplicacion.repository.UsuarioRepository
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.security.core.Authentication
 import org.springframework.security.core.userdetails.User
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
+import kotlin.jvm.optionals.getOrElse
 import kotlin.jvm.optionals.getOrNull
 
 @Service
@@ -46,8 +48,6 @@ class UsuarioService : UserDetailsService {
         val datosProvincias = apiService.obtenerDatosDesdeApi()
         var datosMunicipios: DatosMunicipios? = null
 
-
-        // Si los datos vienen rellenos entonces busco la provincia dentro del resultado de la llamada
         if (datosProvincias != null) {
             if(datosProvincias.data != null) {
                 val provincia = datosProvincias.data.stream().filter {
@@ -58,7 +58,6 @@ class UsuarioService : UserDetailsService {
                 datosMunicipios = apiService.obtenerMunicipiosDesdeApi(provincia.CPRO)
             }
         }
-
         if (datosMunicipios != null) {
             if(datosMunicipios.data != null) {
                 datosMunicipios.data!!.stream().filter {
@@ -70,21 +69,24 @@ class UsuarioService : UserDetailsService {
         }
 
         if (usuarioInsertadoDTO.password.isBlank() || usuarioInsertadoDTO.username.isBlank() || usuarioInsertadoDTO.email.isBlank()) throw BadRequestException("No puede estar la contraseña vacía")
-
         val usuarioBD: Usuario? = usuarioRepository.findByUsername(usuarioInsertadoDTO.username).getOrNull()
 
         if (usuarioBD != null) throw BadRequestException("Este usuario ya existe")
 
         if (usuarioInsertadoDTO.password == usuarioInsertadoDTO.passwordRepeat) {
-
             if(usuarioInsertadoDTO.rol != "USER" && usuarioInsertadoDTO.rol != "ADMIN") throw BadRequestException("No tiene rol")
 
             val usuario = Usuario(null, usuarioInsertadoDTO.username, passwordEncoder.encode(usuarioInsertadoDTO.password), usuarioInsertadoDTO.email, usuarioInsertadoDTO.rol , usuarioInsertadoDTO.direccion)
             usuarioRepository.insert(usuario)
             return UsuarioDTO(usuario.username, usuario.email, usuario.roles)
 
-
         } else throw BadRequestException("La contraseña debe ser igual en los dos casos")
+    }
 
+    fun getUser(authentication: Authentication):UsuarioDTO {
+        val usuarioBD =  usuarioRepository.findByUsername(authentication.name).getOrElse { throw  NotFoundException("Este usuario no existe") }
+        val usuarioDTO = UsuarioDTO(usuarioBD.username, usuarioBD.email, usuarioBD.roles)
+
+        return usuarioDTO
     }
 }

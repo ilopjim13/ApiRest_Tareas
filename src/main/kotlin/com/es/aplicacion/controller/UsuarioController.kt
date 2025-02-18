@@ -36,10 +36,8 @@ class UsuarioController {
         httpRequest: HttpServletRequest,
         @RequestBody usuarioRegisterDTO: UsuarioRegisterDTO
     ) : ResponseEntity<UsuarioDTO>?{
-
         val usuarioDTO = usuarioService.insertUser(usuarioRegisterDTO)
         return ResponseEntity(usuarioDTO, HttpStatus.CREATED)
-
     }
 
     @PostMapping("/login")
@@ -52,11 +50,17 @@ class UsuarioController {
             throw UnauthorizedException("Credenciales incorrectas")
         }
 
-        // SI PASAMOS LA AUTENTICACIÓN, SIGNIFICA QUE ESTAMOS BIEN AUTENTICADOS
-        // PASAMOS A GENERAR EL TOKEN
         val token = tokenService.generarToken(authentication)
 
         return ResponseEntity(mapOf("token" to token), HttpStatus.CREATED)
+    }
+
+    @GetMapping("/usuario")
+    fun getUser(
+        authentication: Authentication
+    ):ResponseEntity<UsuarioDTO> {
+        val usuarioDTO = usuarioService.getUser(authentication)
+        return ResponseEntity<UsuarioDTO>(usuarioDTO, HttpStatus.OK)
     }
 
 }
