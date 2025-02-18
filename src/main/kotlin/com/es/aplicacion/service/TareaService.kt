@@ -47,7 +47,7 @@ class TareaService {
 
         if(tareaAdd.titulo.isBlank() || tareaAdd.descripcion.isBlank()) throw BadRequestException("Los campos deben estar rellenos")
 
-        val tareas = tareasRepository.findAll()
+        val tareas = tareasRepository.findAllByUsername(username)
 
         tareas.forEach {
             if (tareaAdd.titulo == it.titulo) throw BadRequestException("No pueden haber dos tareas con el mismo nombre")
@@ -60,9 +60,10 @@ class TareaService {
         return tareaNew
     }
 
-    fun updateState(titulo: String, auth: Authentication):Tarea {
+    fun updateState(titulo: String, username: String, auth: Authentication):Tarea {
 
-        val tareaUpdate = tareasRepository.findByTitulo(titulo).getOrElse { throw NotFoundException("No existe esta tarea") }
+        val tareaUpdate = tareasRepository.findByTituloUsername(titulo,username)
+            ?: throw NotFoundException("No existe esta tarea")
 
         auth.authorities.forEach {
             if (it.authority != "ROLE_ADMIN" && auth.name != tareaUpdate.creador) throw BadRequestException("No puedes actualizar la tarea de otro")
@@ -74,8 +75,9 @@ class TareaService {
         return tareaUpdate
     }
 
-    fun deleteTask(titulo: String, auth: Authentication) {
-        val tareaDelete = tareasRepository.findByTitulo(titulo).getOrElse { throw NotFoundException("No existe esta tarea") }
+    fun deleteTask(titulo: String, username: String, auth: Authentication) {
+        val tareaDelete = tareasRepository.findByTituloUsername(titulo,username)
+            ?: throw NotFoundException("No existe esta tarea")
         auth.authorities.forEach {
             if (it.authority != "ROLE_ADMIN" && auth.name != tareaDelete.creador) throw BadRequestException("No puedes actualizar la tarea de otro")
         }

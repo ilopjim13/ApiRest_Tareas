@@ -46,27 +46,23 @@ class TareaController {
         return ResponseEntity(tarea, HttpStatus.OK)
     }
 
-    @PostMapping("/actualizarEstado/{titulo}")
+    @PostMapping("/actualizarEstado/{titulo}/{username}")
     fun updateState(
         @PathVariable titulo: String,
+        @PathVariable username: String,
         authentication: Authentication
     ):ResponseEntity<Tarea>  {
-        val tareaUpdate = tareaService.updateState(titulo, authentication)
+        val tareaUpdate = tareaService.updateState(titulo, username, authentication)
         return ResponseEntity(tareaUpdate, HttpStatus.OK)
     }
 
-    @DeleteMapping("/eliminarTarea/{titulo}")
+    @DeleteMapping("/eliminarTarea/{titulo}/{username}")
     fun deleteTask(
         @PathVariable titulo: String,
+        @PathVariable username: String,
         authentication: Authentication
     ):ResponseEntity<String>  {
-        tareaService.deleteTask(titulo, authentication)
+        tareaService.deleteTask(titulo,username, authentication)
         return ResponseEntity("Eliminado", HttpStatus.OK)
     }
-
-    @GetMapping("/")
-    fun holaMundo():String {
-        return "<h1>HOLA MUNDO</h1>"
-    }
-
 }
