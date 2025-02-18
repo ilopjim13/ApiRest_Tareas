@@ -13,7 +13,7 @@ class TareaCustomRepositoryImpl:TareaCustomRepository {
     private lateinit var mongoTemplate:MongoTemplate
     override fun findAllByUsername(username: String): List<Tarea> {
         val database = mongoTemplate.db
-        val collection = database.getCollection("tarea", Tarea::class.java)
+        val collection = database.getCollection("Tarea", Tarea::class.java)
 
         val filtroUsername = Filters.eq("creador", username)
         val tareas = collection.find(filtroUsername).toList()
@@ -23,7 +23,7 @@ class TareaCustomRepositoryImpl:TareaCustomRepository {
 
     override fun findByTituloUsername(titulo: String, username: String): Tarea? {
         val database = mongoTemplate.db
-        val collection = database.getCollection("tarea", Tarea::class.java)
+        val collection = database.getCollection("Tarea", Tarea::class.java)
 
         val filtroTitulo = Filters.eq("titulo", titulo)
         val filtroUser = Filters.eq("creador", username)
