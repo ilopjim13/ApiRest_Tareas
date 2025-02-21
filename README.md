@@ -124,3 +124,4 @@
 ![img_2.png](src/main/resources/pruebas/img_15.png)
 
 - Y aquí tenemos un vide de prueba del register: https://drive.google.com/file/d/1HpMDthfmTVLv4zpzO8Xvu_AHsMNeNxAH/view?usp=drive_link
+- 
