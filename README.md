@@ -81,6 +81,9 @@
   
   ![img_5.png](src/main/resources/pruebas/img_5.png)
 
+- Aqui tenemos un video de prueba del login
+[pruebaLogin.mp4](src%2Fmain%2Fresources%2Fpruebas%2FpruebaLogin.mp4)
+
 # Register
 
 - Una vez hemos terminado el login ahora pasaremos con el registro. Para el registro la app pedirá al usuario que ingrese todos sus datos para agregar al usuario. Para que funcione deberemos rellenar todos los campos y que el formato del gmail sea correcto. Aunque solo falte uno dará fallo.
@@ -120,3 +123,6 @@
 - Como podemos observar en el log se ha registrado y si miramos en la base de datos podremos ver como está añadido.
 
 ![img_2.png](src/main/resources/pruebas/img_15.png)
+
+- Y aquí tenemos un vide de prueba del register
+[pruebaRegistro.mp4](src%2Fmain%2Fresources%2Fpruebas%2FpruebaRegistro.mp4)
