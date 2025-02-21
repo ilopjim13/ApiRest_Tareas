@@ -81,8 +81,7 @@
   
   ![img_5.png](src/main/resources/pruebas/img_5.png)
 
-- Aqui tenemos un video de prueba del login
-[pruebaLogin.mp4](src%2Fmain%2Fresources%2Fpruebas%2FpruebaLogin.mp4)
+- Aqui tenemos un video de prueba del login: https://drive.google.com/file/d/1hrbgAJx3_XmbZ7LFET6CEthBx-Gcv7RB/view?usp=drive_link
 
 # Register
 
@@ -124,5 +123,4 @@
 
 ![img_2.png](src/main/resources/pruebas/img_15.png)
 
-- Y aquí tenemos un vide de prueba del register
-[pruebaRegistro.mp4](src%2Fmain%2Fresources%2Fpruebas%2FpruebaRegistro.mp4)
+- Y aquí tenemos un vide de prueba del register: https://drive.google.com/file/d/1HpMDthfmTVLv4zpzO8Xvu_AHsMNeNxAH/view?usp=drive_link
