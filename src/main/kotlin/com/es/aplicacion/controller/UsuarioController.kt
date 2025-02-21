@@ -75,7 +75,7 @@ class UsuarioController {
         try {
             authentication = authenticationManager.authenticate(UsernamePasswordAuthenticationToken(usuario.username, usuario.password))
         } catch (e: AuthenticationException) {
-            throw UnauthorizedException("Credenciales incorrectas")
+            throw UnauthorizedException("Credenciales user: ${usuario.username}, pass: ${usuario.password} incorrectas")
         }
 
         val token = tokenService.generarToken(authentication)

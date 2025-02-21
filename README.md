@@ -54,4 +54,60 @@
 
 ## PRUEBAS GESTIÓN USUARIOS
 
-- 
+# Login
+- Para logearnos en la app deberemos introducir nuestro usuario y contraseña que exista en la base de datos. 
+  - Para que funcione los campos deben estar rellenados correctamente ya que si no saltará un mensaje de error.
+
+  ![img_6.png](src/main/resources/pruebas/img_6.png)
+
+
+  - La primera prueba que vamos a realizar es la de ingresar un usuario y contraseña erróneo para ver como nos salta la excepción en ambos lados. En este caso vamos a intentar logearnos con Pepito78 y con la contraseña 771122 que no existe en la base de datos.
+  
+  ![img_1.png](src/main/resources/pruebas/img_1.png)
+
+
+  - Le daremos a Iniciar sesión y nos saltará una ventana emergente con el error que nos está mandando la API, que podremos ver en la app, en el log y en la api.
+  
+  ![img_2.png](src/main/resources/pruebas/img_2.png)
+  ![img_3.png](src/main/resources/pruebas/img_3.png)
+
+
+  - En cambio si introducimos datos correctos como el usuario jose y la contraseña 1234 nos devolverá el token con el que podremos iniciar sesión y obtener las tareas de jose.
+  
+  ![img_4.png](src/main/resources/pruebas/img_4.png)
+
+
+  - Como podemos ver en el log de la imagen en Login habremos obtenido el token y habremos entrado en la app mostrando las tareas del usuario. Ya que si miramos la base de datos tenemos 3 tareas y solo una es de jose.
+  
+  ![img_5.png](src/main/resources/pruebas/img_5.png)
+
+# Register
+
+- Una vez hemos terminado el login ahora pasaremos con el registro. Para el registro la app pedirá al usuario que ingrese todos sus datos para agregar al usuario. Para que funcione deberemos rellenar todos los campos y que el formato del gmail sea correcto. Aunque solo falte uno dará fallo.
+
+![img_11.png](src/main/resources/pruebas/img_11.png)
+
+  - Si nos equivocamos introduciendo las contraseñas iguales nos saltará un error de la api.
+
+  ![img_7.png](src/main/resources/pruebas/img_7.png)
+  ![img_8.png](src/main/resources/pruebas/img_8.png)
+
+
+  - Si introducimos un municipio no válido nos dará un error indicando que ese municipio no es válido.
+
+  ![img_9.png](src/main/resources/pruebas/img_9.png)
+
+
+  - Lo mismo pasará si nos equivocamos en la provincia.
+
+  ![img_10.png](src/main/resources/pruebas/img_10.png)
+
+
+  - Y por último pero no menos importante si intentamos agregar un usuario ya existente nos dará error
+
+  ![img_12.png](src/main/resources/pruebas/img_12.png)
+
+
+  - Tambíen en la api porbamos que el rol sea admin o user aunque en esta parte lo he facilitado al usuario utilizando un menú desplegable para que no pueda introducir otro valor que no sea USER o ADMIN, aunque lo dejo en la api por si las moscas.
+
+  ![img.png](src/main/resources/pruebas/img13.png)
