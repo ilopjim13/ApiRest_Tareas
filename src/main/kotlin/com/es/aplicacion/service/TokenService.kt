@@ -16,12 +16,16 @@ class TokenService {
     @Autowired
     private lateinit var jwtEncoder: JwtEncoder
 
+    /**
+     * Genera un token JWT basado en la información del usuario autenticado.
+     *
+     * @param authentication Información de autenticación del usuario.
+     * @return Un token JWT como `String`.
+     */
     fun generarToken(authentication: Authentication) : String {
-
-        println("diediejdei")
-
+        // Obtiene los roles del usuario y los convierte en una cadena separada por espacios
         val roles: String = authentication.authorities.joinToString(" ") { it.authority } // Contiene los roles del usuario
-
+        // Construcción del payload del token JWT
         val payload: JwtClaimsSet = JwtClaimsSet.builder()
             .issuer("self")
             .issuedAt(Instant.now())
@@ -30,6 +34,6 @@ class TokenService {
             .claim("roles", roles)
             .build()
 
-        return jwtEncoder.encode(JwtEncoderParameters.from(payload)).tokenValue;
+        return jwtEncoder.encode(JwtEncoderParameters.from(payload)).tokenValue
     }
 }

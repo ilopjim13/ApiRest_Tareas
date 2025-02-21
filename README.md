@@ -51,3 +51,7 @@
 - Y privados, de los cuales se divirán en dos a su vez:
   - Los privados que podrán entrar todos los usuarios en donde pueden entrar en los endpoints referentes a sus propias tareas.
   - Y los privados solo para los ADMIN: que solo pueden acceder los usuarios con rol ADMIN, como por ejemplo al endpoint de mostrarTodas.
+
+## PRUEBAS GESTIÓN USUARIOS
+
+- 

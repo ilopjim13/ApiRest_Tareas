@@ -3,7 +3,7 @@ package com.es.aplicacion.controller
 import com.es.aplicacion.dto.LoginUsuarioDTO
 import com.es.aplicacion.dto.UsuarioDTO
 import com.es.aplicacion.dto.UsuarioRegisterDTO
-import aplicacion.error.exception.UnauthorizedException
+import com.es.aplicacion.error.exception.UnauthorizedException
 import com.es.aplicacion.service.TokenService
 import com.es.aplicacion.service.UsuarioService
 import jakarta.servlet.http.HttpServletRequest
@@ -20,6 +20,10 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
+/**
+ * Controlador REST para gestionar usuarios en el sistema.
+ * Permite realizar operaciones como el registro, login y obtener información del usuario autenticado.
+ */
 @RestController
 @RequestMapping("/usuarios")
 class UsuarioController {
@@ -31,6 +35,18 @@ class UsuarioController {
     @Autowired
     private lateinit var usuarioService: UsuarioService
 
+    /**
+     * Registra un nuevo usuario en el sistema.
+     *
+     * Recibe un objeto `usuarioRegisterDTO` en el cuerpo de la solicitud y lo procesa para insertar
+     * un nuevo usuario en la base de datos. Si la inserción es exitosa, devuelve una respuesta con
+     * el objeto `usuarioDTO` del usuario recién creado.
+     *
+     * @param httpRequest La solicitud HTTP.
+     * @param usuarioRegisterDTO Objeto que contiene los datos del usuario a registrar.
+     * @return Una respuesta con el objeto `usuarioDTO` del usuario creado y un estado `HttpStatus.CREATED`.
+     * @throws BadRequestException Si hay errores en los datos proporcionados.
+     */
     @PostMapping("/register")
     fun insert(
         httpRequest: HttpServletRequest,
@@ -40,6 +56,18 @@ class UsuarioController {
         return ResponseEntity(usuarioDTO, HttpStatus.CREATED)
     }
 
+
+    /**
+     * Realiza el login de un usuario en el sistema.
+     *
+     * Recibe un objeto `LoginUsuarioDTO` con las credenciales de login (usuario y contraseña),
+     * y usa el `AuthenticationManager` para autenticar al usuario. Si la autenticación es exitosa,
+     * se genera un token JWT para el usuario autenticado y se devuelve en la respuesta.
+     *
+     * @param usuario Objeto que contiene las credenciales del usuario (usuario y contraseña).
+     * @return Una respuesta con un mapa que contiene el token generado.
+     * @throws UnauthorizedException Si las credenciales proporcionadas son incorrectas.
+     */
     @PostMapping("/login")
     fun login(@RequestBody usuario: LoginUsuarioDTO) : ResponseEntity<Any>? {
 
@@ -55,6 +83,16 @@ class UsuarioController {
         return ResponseEntity(mapOf("token" to token), HttpStatus.CREATED)
     }
 
+
+    /**
+     * Obtiene los datos del usuario autenticado.
+     *
+     * Devuelve los datos del usuario que está actualmente autenticado. El objeto `Authentication`
+     * contiene la información del usuario autenticado.
+     *
+     * @param authentication El objeto de autenticación que contiene el usuario autenticado.
+     * @return Una respuesta con el objeto `usuarioDTO` del usuario autenticado y un estado `HttpStatus.OK`.
+     */
     @GetMapping("/usuario")
     fun getUser(
         authentication: Authentication
