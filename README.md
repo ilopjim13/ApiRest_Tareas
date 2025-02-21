@@ -111,3 +111,12 @@
   - Tambíen en la api porbamos que el rol sea admin o user aunque en esta parte lo he facilitado al usuario utilizando un menú desplegable para que no pueda introducir otro valor que no sea USER o ADMIN, aunque lo dejo en la api por si las moscas.
 
   ![img.png](src/main/resources/pruebas/img13.png)
+  
+- Ahora ingresaremos datos correctamente y se registrará el usuario y nos mandará a la pantalla del login para que iniciemos sesión con ese usuario
+
+![img_3.png](src/main/resources/pruebas/img_16.png)
+![img_1.png](src/main/resources/pruebas/img_14.png)
+
+- Como podemos observar en el log se ha registrado y si miramos en la base de datos podremos ver como está añadido.
+
+![img_2.png](src/main/resources/pruebas/img_15.png)
