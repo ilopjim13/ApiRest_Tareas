@@ -66,20 +66,15 @@ class TareaService {
      * @throws BadRequestException si los campos de la tarea están vacíos o si ya existe una tarea con el mismo título.
      */
     fun addTask(username: String,tareaAdd:TareaAddDTO, auth: Authentication):Tarea {
-        try {
-            usuarioRepository.findByUsername(username).getOrElse { throw  NotFoundException("Este usuario no existe") }
-            auth.authorities.forEach {
-                if (it.authority != "ROLE_ADMIN" && auth.name != username) throw BadRequestException("No puedes agregar una tarea a otro")
-            }
+        usuarioRepository.findByUsername(username).getOrElse { throw  NotFoundException("Este usuario no existe") }
+        auth.authorities.forEach {
+            if (it.authority != "ROLE_ADMIN" && auth.name != username) throw BadRequestException("No puedes agregar una tarea a otro")
+        }
 
-            if(tareaAdd.titulo.isBlank() || tareaAdd.descripcion.isBlank()) throw BadRequestException("Los campos deben estar rellenos")
+        if(tareaAdd.titulo.isBlank() || tareaAdd.descripcion.isBlank()) throw BadRequestException("Los campos deben estar rellenos")
 
-            tareasRepository.findAllByUsername(username).forEach {
-                if (tareaAdd.titulo == it.titulo) throw BadRequestException("No pueden haber dos tareas con el mismo nombre")
-            }
-
-        } catch (e:Exception) {
-            println(e.message)
+        tareasRepository.findAllByUsername(username).forEach {
+            if (tareaAdd.titulo == it.titulo) throw BadRequestException("No pueden haber dos tareas con el mismo nombre")
         }
 
         val tareaNew = Tarea(tareaAdd.titulo, tareaAdd.descripcion, Date(), false, username)
