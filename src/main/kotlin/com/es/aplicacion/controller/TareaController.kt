@@ -57,7 +57,7 @@ class TareaController {
      * @return Una respuesta con una lista de todas las tareas.
      */
     @GetMapping("/mostrarTodas")
-    fun getAll():ResponseEntity<List<Tarea>>  {
+    fun getAll(authentication: Authentication):ResponseEntity<List<Tarea>>  {
         return ResponseEntity(tareaService.getAllTasks(), HttpStatus.OK)
     }
 

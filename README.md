@@ -112,7 +112,7 @@
 
   - Tambíen en la api porbamos que el rol sea admin o user aunque en esta parte lo he facilitado al usuario utilizando un menú desplegable para que no pueda introducir otro valor que no sea USER o ADMIN, aunque lo dejo en la api por si las moscas.
 
-  ![img.png](src/main/resources/pruebas/img13.png)
+  ![img.png](src/main/resources/pruebas/img_13.png)
   
 - Ahora ingresaremos datos correctamente y se registrará el usuario y nos mandará a la pantalla del login para que iniciemos sesión con ese usuario
 
@@ -124,4 +124,95 @@
 ![img_2.png](src/main/resources/pruebas/img_15.png)
 
 - Y aquí tenemos un vide de prueba del register: https://drive.google.com/file/d/1HpMDthfmTVLv4zpzO8Xvu_AHsMNeNxAH/view?usp=drive_link
-- 
+
+
+## Tareas
+
+- Para las tareas primero vamos a iniciar sesión con un usuario USER y luego con otro ADMIN.
+- Para estas pruebas vamos a usar el usuario Jose (USER) y el usuario Pepe (ADMIN).
+
+![img.png](src/main/resources/pruebas/img_17.png)
+
+# Rol User
+
+- Primero iniciamos sesión con Jose.
+
+![img_10.png](src/main/resources/pruebas/img_36.png)
+
+- Para insomnia podremos ver nuestras tareas desde TareaUsuario.
+
+![img_11.png](src/main/resources/pruebas/img_37.png)
+
+- Si intentamos ver las tareas de otros nos saltará un error 401.
+
+![img_12.png](src/main/resources/pruebas/img_38.png)
+
+- Ahora agregaremos una tarea a nosostros y luego una a otra persona que nos dará error.
+
+![img_13.png](src/main/resources/pruebas/img_39.png)
+![img_14.png](src/main/resources/pruebas/img_40.png)
+
+- A la hora de actualizar pasará lo mismo solo podemos actualizar nuestra tarea.
+
+![img_15.png](src/main/resources/pruebas/img_41.png)
+![img_16.png](src/main/resources/pruebas/img_42.png)
+
+- Y ahora para borrar.
+
+![img_17.png](src/main/resources/pruebas/img_17.png)
+![img_18.png](src/main/resources/pruebas/img_18.png)
+
+- Una vez inciada veremos que solo nos aparece las tareas de jose en la app.
+
+![img_1.png](src/main/resources/pruebas/img_27.png)
+![img_2.png](src/main/resources/pruebas/img_28.png)
+
+- Por lo que solo podemos activar como hecha o borrar sus propias tareas.
+
+![img_5.png](src/main/resources/pruebas/img_31.png)
+![img_6.png](src/main/resources/pruebas/img_32.png)
+
+- En cambio si queremos guardar una tarea y cambiamos nuestro nombre de usuario a otro usuario como creador, nos dará un error ya que el usuario solo puede crear tareas a él mismo.
+
+![img_3.png](src/main/resources/pruebas/img_29.png)
+![img_4.png](src/main/resources/pruebas/img_30.png)
+
+- De esta manera el usuario user solo puede crear, actualiza, y borrar sus propias tareas, aunque desde insomnia también controlamos que lo de borrar y actualizar sea solo de sus propias tareas.
+
+# Rol Admin
+
+- Para el admin iniciaremos sesión con el usuario Pepe que es rol admin
+
+![img_19.png](src/main/resources/pruebas/img_19.png)
+
+- Ahora veremos nuestras tareas las de otros y la de todos.
+
+![img_20.png](src/main/resources/pruebas/img_20.png)
+
+- Como podemos ver pepe puede ver las tareas de otro y ver todas porque es admin.
+
+![img_21.png](src/main/resources/pruebas/img_21.png)
+![img_22.png](src/main/resources/pruebas/img_22.png)
+
+- Agregaremos una tarea a pepito desde pepe.
+
+![img_23.png](src/main/resources/pruebas/img_23.png)
+
+- Ahora actualizaré el estado de una tarea de otra cuenta.
+
+![img_24.png](src/main/resources/pruebas/img_24.png)
+![img_25.png](src/main/resources/pruebas/img_25.png)
+
+Y por último borraremos una tarea a otro usuario.
+
+![img_26.png](src/main/resources/pruebas/img_26.png)
+
+- Como podemos comprobar a pepe si le aparecen todas la tareas de todos los usuarios por que es admin
+
+![img_7.png](src/main/resources/pruebas/img_33.png)
+
+- Por lo que puede agregar, actualizar, y eliminar cualquier tarea aunque no sea suya. Agregaremos una tarea a jose desde pepe y actualizaremos sus tareas para ver los cambios en la base de datos.
+
+![img_8.png](src/main/resources/pruebas/img_34.png)
+![img_9.png](src/main/resources/pruebas/img_35.png)
+
