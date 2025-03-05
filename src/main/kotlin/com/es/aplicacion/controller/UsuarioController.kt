@@ -104,9 +104,9 @@ class UsuarioController {
     @GetMapping("/usuarios")
     fun getUsers(
         authentication: Authentication
-    ):ResponseEntity<UsuarioDTO> {
-        val usuarioDTO = usuarioService.getUser(authentication)
-        return ResponseEntity<UsuarioDTO>(usuarioDTO, HttpStatus.OK)
+    ):ResponseEntity<List<UsuarioDTO>> {
+        val usuarioDTO = usuarioService.getUsers()
+        return ResponseEntity<List<UsuarioDTO>>(usuarioDTO, HttpStatus.OK)
     }
 
 }
