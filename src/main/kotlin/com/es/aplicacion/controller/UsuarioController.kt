@@ -101,4 +101,12 @@ class UsuarioController {
         return ResponseEntity<UsuarioDTO>(usuarioDTO, HttpStatus.OK)
     }
 
+    @GetMapping("/usuarios")
+    fun getUsers(
+        authentication: Authentication
+    ):ResponseEntity<UsuarioDTO> {
+        val usuarioDTO = usuarioService.getUser(authentication)
+        return ResponseEntity<UsuarioDTO>(usuarioDTO, HttpStatus.OK)
+    }
+
 }

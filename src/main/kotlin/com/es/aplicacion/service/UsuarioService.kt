@@ -116,4 +116,20 @@ class UsuarioService : UserDetailsService {
 
         return usuarioDTO
     }
+
+    /**
+     * Obtiene los datos de todos los usuairos.
+     *
+     * @return UsuarioDTO con los datos del usuario autenticado.
+     */
+    fun getUsers():MutableList<UsuarioDTO> {
+        val usuariosBD =  usuarioRepository.findAll()
+        val listaUsuarios = mutableListOf<UsuarioDTO>()
+        usuariosBD.forEach {
+            val usuarioDTO = UsuarioDTO(it.username, it.email, it.roles)
+            listaUsuarios.add(usuarioDTO)
+        }
+
+        return listaUsuarios
+    }
 }
