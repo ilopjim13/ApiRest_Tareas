@@ -101,6 +101,12 @@ class UsuarioController {
         return ResponseEntity<UsuarioDTO>(usuarioDTO, HttpStatus.OK)
     }
 
+    /**
+     * Obtiene todos los usuarios de la base de datos y los devuelve
+     *
+     * @param authentication El objeto de autenticación que contiene el usuario autenticado.
+     * @return Una respuesta con el objeto `List<UsuarioDTO>` de todos los usuarios y un estado `HttpStatus.OK`.
+     */
     @GetMapping("/usuarios")
     fun getUsers(
         authentication: Authentication
